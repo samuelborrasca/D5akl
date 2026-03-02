@@ -8,8 +8,8 @@ found from [AKL Discord](https://discord.com/invite/sxTV2G5Acg)
 
 all the ecombos are in a consistent order and reflect the two keys being pressed exactly (orthographic)
 
-Reference-style: 
+Base layer:
 ![alt text][base]
 
-[base]: [https://github.com/samuelborrasca/D5akl/blob/main/base%20layer.png] "base layer"
+[base]: https://github.com/samuelborrasca/D5akl/blob/main/base%20layer.png "base layer"
 
