@@ -11,5 +11,5 @@ all the ecombos are in a consistent order and reflect the two keys being pressed
 Reference-style: 
 ![alt text][base]
 
-[base]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "base layer"
+[base]: [https://github.com/samuelborrasca/D5akl/blob/main/base%20layer.png] "base layer"
 
