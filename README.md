@@ -12,6 +12,10 @@ I adapted mine for a 34-key board instead of the original 28 keys, which also al
 The homerow mods stayed mostly the same but the layers are adjusted for my liking.
 My version is done with Kanata.
 
+The homerow mods were carefully adjusted for no misfires while typing, and it's been working well so far.
+
+## Layout
+
 Base layer alpha keys & vertical bigram combos:
 ![alt text][base] 
 
