@@ -8,12 +8,12 @@ D5 makes use of doubled/mirrored letters, thumb vowels, pinky spaces & combos to
 
 ## My implementation
 
-Base layer:
+Base layer alpha keys:
 ![alt text][base] 
 
 [base]: https://github.com/samuelborrasca/D5akl/blob/main/base%20layer.png "base layer"
 
-Combos:
+Base layer combos:
 ![alt text][Combos] 
 
 [Combos]: https://github.com/samuelborrasca/D5akl/blob/main/combos.png "combos"
