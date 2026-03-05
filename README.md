@@ -14,6 +14,13 @@ My version is done with Kanata.
 
 The homerow mods were carefully adjusted for no misfires while typing, and it's been working well so far.
 
+Note that the Kanata config file expects the input layout to be configured as so, with the thumb keys being `1 2` on the left half and `3 4` on the right half:
+
+	q	w	e	r	t				y	u	i	o	p	
+	a	s	d	f	g				h	j	k	l	;	 		
+	z	x	c	v	b				n	m	,	.	/
+					1	2	3	4		
+
 ## Layout
 
 ![alt text][layoutd5] 
