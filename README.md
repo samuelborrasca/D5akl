@@ -4,9 +4,13 @@ An alternate keyboard layout originally by StrawberryTurtle: https://codeberg.or
 Intended for column-staggered keyboards with two thumb keys per side. \
 Light switches are recommended. I use [Ambient Nocturnals](https://lowprokb.ca/collections/switches/products/ambients-silent-choc-switches?variant=44873446391972) and the original creator uses the same ones but with [even lighter 12g springs.](https://nolltronics.com/product/sprit-kailh-choc-12g-springs/)
 
-D5 makes use of doubled/mirrored letters, thumb vowels, pinky spaces & combos to reduce redirects, same finger bigrams and pinky movement while increasing rolls and alts.
+D5 makes use of doubled/mirrored letters, thumb vowels, pinky spaces/repeat keys & combos to reduce redirects, same finger bigrams and pinky movement while increasing rolls and alts.
 
 ## My implementation
+
+I adapted mine for a 34-key board instead of the original 28 keys, which also allowed me to add Ä and Ö for Finnish typing.
+The homerow mods stayed mostly the same but the layers are adjusted for my liking.
+My version is done with Kanata.
 
 Base layer alpha keys & vertical bigram combos:
 ![alt text][base] 
