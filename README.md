@@ -6,6 +6,7 @@ Light switches are recommended. I use [Ambient Nocturnals](https://lowprokb.ca/c
 
 D5 makes use of doubled/mirrored letters, thumb vowels, pinky spaces & combos to reduce redirects, same finger bigrams and pinky movement while increasing rolls and alts.
 
+## My implementation
 
 Base layer:
 ![alt text][base] 
@@ -20,7 +21,12 @@ Combos:
 Num layer:
 ![alt text][Num layer] 
 
-[Num layer]: https://github.com/samuelborrasca/D5akl/blob/main/num%layer.png "Num layer"
+[Num layer]: https://github.com/samuelborrasca/D5akl/blob/main/num%20layer.png "Num layer"
+
+Sym layer:
+![alt text][Sym layer] 
+
+[Sym layer]: https://github.com/samuelborrasca/D5akl/blob/main/sym%20layer.png "Sym layer"
 
 
 
