@@ -16,6 +16,12 @@ The homerow mods were carefully adjusted for no misfires while typing, and it's 
 
 ## Layout
 
+![alt text][layout] 
+
+[layout]: https://github.com/samuelborrasca/D5akl/blob/main/layout.png "layout"
+
+## Notes (WIP)
+
 Base layer alpha keys & vertical bigram combos:
 ![alt text][base] 
 
