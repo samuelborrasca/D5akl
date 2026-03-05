@@ -16,9 +16,9 @@ The homerow mods were carefully adjusted for no misfires while typing, and it's 
 
 ## Layout
 
-![alt text][layout] 
+![alt text][layoutd5] 
 
-[layout]: https://github.com/samuelborrasca/D5akl/blob/main/layout.png "layout"
+[layoutd5]: https://github.com/samuelborrasca/D5akl/blob/main/layoutd5.png "layoutd5"
 
 ## Notes (WIP)
 
