@@ -17,5 +17,10 @@ Combos:
 
 [Combos]: https://github.com/samuelborrasca/D5akl/blob/main/combos.png "combos"
 
+Num layer:
+![alt text][Num layer] 
+
+[Num layer]: https://github.com/samuelborrasca/D5akl/blob/main/num%layer.png "Num layer"
+
 
 
