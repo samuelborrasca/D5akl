@@ -28,5 +28,10 @@ Sym layer:
 
 [Sym layer]: https://github.com/samuelborrasca/D5akl/blob/main/sym%20layer.png "Sym layer"
 
+Sym2 layer:
+![alt text][Sym2 layer] 
+
+[Sym2 layer]: https://github.com/samuelborrasca/D5akl/blob/main/sym2%20layer.png "Sym2 layer"
+
 
 
