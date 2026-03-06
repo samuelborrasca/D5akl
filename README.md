@@ -29,30 +29,30 @@ Note that the Kanata config file expects the input layout to be configured as so
 
 ## Notes (WIP)
 
-Base layer alpha keys & vertical bigram combos:
+Base layer:
 ![alt text][base] 
 
-[base]: https://github.com/samuelborrasca/D5akl/blob/main/base%20layer.png "base layer"
+[base]: https://github.com/samuelborrasca/D5akl/blob/main/baselayer.png "base layer"
 
-Base layer combos:
+Thumb combos:
 ![alt text][Combos] 
 
-[Combos]: https://github.com/samuelborrasca/D5akl/blob/main/combos.png "combos"
+[Combos]: https://github.com/samuelborrasca/D5akl/blob/main/thumbcombos.png "combos"
 
 Num layer:
 ![alt text][Num layer] 
 
-[Num layer]: https://github.com/samuelborrasca/D5akl/blob/main/num%20layer.png "Num layer"
+[Num layer]: https://github.com/samuelborrasca/D5akl/blob/main/numlayer.png "Num layer"
 
 Sym layer:
 ![alt text][Sym layer] 
 
-[Sym layer]: https://github.com/samuelborrasca/D5akl/blob/main/sym%20layer.png "Sym layer"
+[Sym layer]: https://github.com/samuelborrasca/D5akl/blob/main/symlayer.png "Sym layer"
 
 Sym2 layer:
 ![alt text][Sym2 layer] 
 
-[Sym2 layer]: https://github.com/samuelborrasca/D5akl/blob/main/sym2%20layer.png "Sym2 layer"
+[Sym2 layer]: https://github.com/samuelborrasca/D5akl/blob/main/sym2layer.png "Sym2 layer"
 
 
 
