@@ -9,10 +9,9 @@ D5 makes use of doubled/mirrored letters, thumb vowels, pinky spaces/repeat keys
 ## My implementation
 
 I adapted mine for a 34-key board instead of the original 28 keys, which also allowed me to add Ä and Ö for Finnish typing.
-The homerow mods stayed mostly the same but the layers are adjusted for my liking.
-My version is done with Kanata.
+My version is done with Kanata and has slight adjustments from the original; it is mostly stripped down.
 
-The homerow mods were carefully adjusted for no misfires while typing, and it's been working well so far.
+The homerow mods were carefully adjusted for no misfires while typing, and it's been working well so far. They're largely based on [Argenkiwi's homerow setup](https://github.com/argenkiwi/kenkyo/discussions/27).
 
 Note that the Kanata config file expects the input layout to be configured as so, with the thumb keys being `1 2` on the left half and `3 4` on the right half:
 
