@@ -25,7 +25,7 @@ Note that the Kanata config file expects the input layout to be configured as so
 
 ![alt text][layoutd5] 
 
-[layoutd5]: https://github.com/samuelborrasca/D5akl/blob/main/layoutd5.png "layoutd5"
+[layoutd5]: https://github.com/samuelborrasca/D5akl/blob/main/layoutD5.png "layoutd5"
 
 ## Notes (WIP)
 
