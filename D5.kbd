@@ -123,12 +123,25 @@ u (switch
 		(( or (layer base) (layer osmbase) )) u break
 	)
 
-;;certain bigram combos are triggered with virtual keys to get the desired shifted behavior of only capitalizing the first letter, e.g es → Es. Ui might be an edge case in Finnish. I never start a sentence with Egg.
+;;bigram combos are triggered with virtual keys so they don't trigger before a tap-hold key is released; see https://jtroo.github.io/config.html#chordsv2-processing-order
+ec (macro e c)
+kt (macro k t)
+wr (macro w r)
 es (fork (macro e s) (macro S-e (unmod s)) (‹⇧ ⇧›))
+dt (macro d t)
+rm (macro r m)
+rv (macro r v)
 ui (fork (macro u i) (macro S-u (unmod i)) (‹⇧ ⇧›))
+
 bl (fork (macro b l) (macro S-b (unmod l)) (‹⇧ ⇧›))
+nf (macro n f)
+eg (macro e g)
+bj (macro b j)
+hl (macro h l)
+np (macro n p)
 ;;es2 is used to specify which repeat key responds to which es combo
 es2 (fork (macro e s) (macro S-e (unmod s)) (‹⇧ ⇧›))
+oa (macro o a)
 )
 
 ;;----------------------------ALIASES
@@ -244,6 +257,7 @@ r1
 	((input-history real t 2)) 🔣ä break
 	((input-history virtual es 2)) s break
 	((input-history virtual ui 2)) i break
+	((input-history virtual rm 2)) w break
 	((or
 		(key-history 🔊 1)
 		(key-history 🔉 1)
@@ -353,13 +367,13 @@ l (t! charmodkeys l ⇧› $rkeys)
 (x v) (on-press tap-vkey q) $chord-timeout all-released (num sym sym2)
 
 ;;-----------vertical combos
-(w s) (macro e c) $chord-timeout all-released (num sym sym2)
-(e d) (macro k t) $chord-timeout all-released (num sym sym2)
-(r f) (macro w r) $chord-timeout all-released (num sym sym2)
+(w s) (on-press tap-vkey ec) $chord-timeout all-released (num sym sym2)
+(e d) (on-press tap-vkey kt) $chord-timeout all-released (num sym sym2)
+(r f) (on-press tap-vkey wr) $chord-timeout all-released (num sym sym2)
 (s x) (on-press tap-vkey es) $chord-timeout all-released (num sym sym2)
-(d c) (macro d t) $chord-timeout all-released (num sym sym2)
-(f v) (macro r m) $chord-timeout all-released (num sym sym2)
-(g b) (macro r v) $chord-timeout all-released (num sym sym2)
+(d c) (on-press tap-vkey dt) $chord-timeout all-released (num sym sym2)
+(f v) (on-press tap-vkey rm) $chord-timeout all-released (num sym sym2)
+(g b) (on-press tap-vkey rv) $chord-timeout all-released (num sym sym2)
 (1 2) (on-press tap-vkey ui) $chord-timeout all-released (num sym sym2)
 
 ;;----------thumb combos
@@ -400,14 +414,14 @@ l (t! charmodkeys l ⇧› $rkeys)
 (. m) (on-press tap-vkey q) $chord-timeout all-released (num sym sym2)
 
 ;;-----------vertical combos
-(o l) (macro e g) $chord-timeout all-released (num sym sym2)
-(i k) (macro n f) $chord-timeout all-released (num sym sym2)
+(o l) (on-press tap-vkey eg) $chord-timeout all-released (num sym sym2)
+(i k) (on-press tap-vkey nf) $chord-timeout all-released (num sym sym2)
 (u j) (on-press tap-vkey bl) $chord-timeout all-released (num sym sym2)
 (l .) (on-press tap-vkey es2) $chord-timeout all-released (num sym sym2)
-(k ,) (macro n p) $chord-timeout all-released (num sym sym2)
-(j m) (macro h l) $chord-timeout all-released (num sym sym2)
-(h n) (macro b j) $chord-timeout all-released (num sym sym2)
-(3 4) (macro o a) $chord-timeout all-released (num sym sym2)
+(k ,) (on-press tap-vkey np) $chord-timeout all-released (num sym sym2)
+(j m) (on-press tap-vkey hl) $chord-timeout all-released (num sym sym2)
+(h n) (on-press tap-vkey bj) $chord-timeout all-released (num sym sym2)
+(3 4) (on-press tap-vkey oa) $chord-timeout all-released (num sym sym2)
 
 ;;----------thumb combos
 (4 o) (on-press tap-vkey Cx) $chord-timeout all-released ()
@@ -471,10 +485,6 @@ l (t! charmodkeys l ⇧› $rkeys)
 					@B1  @91		@B	•		
 )
 
-
-;; ≈≠γαΔ ⇐≥≤∢ ⇔⇒∛√ 
-;; ∞±βδ· π↑←∧ ∫↓→∨∈
-
 (deflayer sym2
 	‹🖰	🖰›	🔇	🔉	🔊				🔅	🔆	⌨💡+	⌨💡−
 	@≈	@≠	@γ	@α	@Δ				@∞	@±	@β	@δ	@·	
@@ -482,4 +492,5 @@ l (t! charmodkeys l ⇧› $rkeys)
 	@⇔	@⇒	@∛	@√	@fx				@∫	@↓	@→	@∨	@∈
 					•	•		•	•	
 )
+
 
