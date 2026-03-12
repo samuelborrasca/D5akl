@@ -148,43 +148,13 @@ oa (macro o a)
 (defalias
 
 ;;combo symbols
-  dq (unicode r#"""#)
-  : 🔣:
-  _ 🔣_
-
-@ 🔣@
-  ' 🔣'
-  ; 🔣;
-  - 🔣-
-  ` 🔣`
 
   / (tap-hold $tap-timeout 250 🔣/ (macro 🔣/ 🔣/))
 
 ;;sym layer symbols
   € 🔣€
-  $ 🔣$
-  ! 🔣!
-  < 🔣<
-  > 🔣>
-  % 🔣%
-  ? 🔣?
-\ 🔣\
-  | 🔣|
-
   lp (unicode "(")
   rp (unicode ")")
-  [ 🔣[
-  ] 🔣]
-  { 🔣{
-  } 🔣}
-  # 🔣#
-  & 🔣&
-
- * 🔣*
-  + 🔣+
-  ^ 🔣^
-  = 🔣=
-  ~ 🔣~
 
 ;;umlauts are unicodes so the shifted behavior has to be declared
 ä (fork 🔣ä 🔣Ä (‹⇧ ⇧›))
@@ -389,14 +359,14 @@ l (t! charmodkeys l ⇧› $rkeys)
 (1 c) (multi (on-press tap-vkey ▶) (tap-hold $tap-timeout 500 XX ▶)) $chord-timeout all-released ()
 (1 v) (multi (on-press tap-vkey ▼) (tap-hold $tap-timeout 500 XX ▼)) $chord-timeout all-released ()
 
-(2 w) @dq $chord-timeout all-released ()
-(2 e) @_ $chord-timeout all-released ()
-(2 r) @: $chord-timeout all-released ()
-(2 a) @@ $chord-timeout all-released ()
-(2 s) @' $chord-timeout all-released ()
-(2 d) @- $chord-timeout all-released ()
-(2 f) @; $chord-timeout all-released ()
-(2 g) @` $chord-timeout all-released ()
+(2 w) S-' $chord-timeout all-released ()
+(2 e) S-- $chord-timeout all-released ()
+(2 r) S-; $chord-timeout all-released ()
+(2 a) S-2 $chord-timeout all-released ()
+(2 s) ' $chord-timeout all-released ()
+(2 d) - $chord-timeout all-released ()
+(2 f) ; $chord-timeout all-released ()
+(2 g) ` $chord-timeout all-released ()
 (2 x) @/ $chord-timeout all-released ()
 (2 c) . $chord-timeout all-released ()
 (2 v) , $chord-timeout all-released ()
@@ -436,14 +406,14 @@ l (t! charmodkeys l ⇧› $rkeys)
 (4 ,) (multi (on-press tap-vkey ▶) (tap-hold $tap-timeout 500 XX ▶)) $chord-timeout all-released ()
 (4 m) (multi (on-press tap-vkey ▼) (tap-hold $tap-timeout 500 XX ▼)) $chord-timeout all-released ()
 
-(3 o) @dq $chord-timeout all-released ()
-(3 i) @_ $chord-timeout all-released ()
-(3 u) @: $chord-timeout all-released ()
-(3 ;) @@ $chord-timeout all-released ()
-(3 l) @' $chord-timeout all-released ()
-(3 k) @- $chord-timeout all-released ()
-(3 j) @; $chord-timeout all-released ()
-(3 h) @` $chord-timeout all-released ()
+(3 o) S-' $chord-timeout all-released ()
+(3 i) S-- $chord-timeout all-released ()
+(3 u) S-; $chord-timeout all-released ()
+(3 ;) S-2 $chord-timeout all-released ()
+(3 l) ' $chord-timeout all-released ()
+(3 k) - $chord-timeout all-released ()
+(3 j) ; $chord-timeout all-released ()
+(3 h) ` $chord-timeout all-released ()
 (3 .) @/ $chord-timeout all-released ()
 (3 ,) . $chord-timeout all-released ()
 (3 m) , $chord-timeout all-released ()
@@ -479,9 +449,9 @@ l (t! charmodkeys l ⇧› $rkeys)
 
 (deflayer sym
 	‹🖰	🖰›	🔇	🔉	🔊				🔅	🔆	⌨💡+	⌨💡−
-	•	@&	@%	@^	•				•	@=	@+	@*	•	
-	␣	@{	@[	@lp	@~				@€	@rp	@]	@}	␣	 		
-	@?	 @!	@#	@<	@S				@S	@>	@$	@\	@|
+	•	S-7	S-5	S-6	•				•	=	S-=	S-8	•	
+	␣	S-[	[	@lp	S-`				@€	@rp	]	S-]	␣	 		
+	S-/	 S-1	S-3	S-,	@S				@S	S-.	S-4	\	S-\
 					@B1  @91		@B	•		
 )
 
@@ -492,5 +462,6 @@ l (t! charmodkeys l ⇧› $rkeys)
 	@⇔	@⇒	@∛	@√	@fx				@∫	@↓	@→	@∨	@∈
 					•	•		•	•	
 )
+
 
 
