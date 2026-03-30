@@ -4,7 +4,7 @@ An alternate keyboard layout originally by StrawberryTurtle: [https://codeberg.o
 Intended for column-staggered keyboards with two thumb keys per side. \
 Light switches are recommended. I use [Ambient Nocturnals](https://lowprokb.ca/collections/switches/products/ambients-silent-choc-switches?variant=44873446391972) and the original creator uses the same ones, with [lighter 12g springs on the pinky and thumb keys.](https://nolltronics.com/product/sprit-kailh-choc-12g-springs/)
 
-D5 makes use of doubled/mirrored letters, thumb vowels, chiral space/skipmagic pinkies, and horizontal & vertical ombos to reduce redirects, same finger bigrams and pinky movement while increasing rolls and alts.
+D5 makes use of doubled/mirrored letters, thumb vowels, chiral space/skipmagic pinkies, and horizontal & vertical combos to reduce redirects, same finger bigrams and pinky movement while increasing rolls and alts.
 
 ## My implementation
 
