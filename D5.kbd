@@ -111,7 +111,10 @@ chords-v2-min-idle 50
 				(input-history real 1 2)
 				(input-history real 2 2)			
 			) 
-			(input-history real a 1) 
+			(or 
+				(input-history real a 1) 
+				(input-history real z 1)
+			)
 		)
 		(and 
 			(or
@@ -130,7 +133,10 @@ chords-v2-min-idle 50
 				(input-history real 4 2)
 				(input-history real 3 2)			
 			) 
-			(input-history real ; 1)
+			(or
+				(input-history real ; 1)
+				(input-history real / 1)
+			)
 		)
 	))
 	;;action: output letter depends on 2nd to last pressed key
