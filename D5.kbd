@@ -56,7 +56,7 @@ chords-v2-min-idle 50
   )
 )
 
-#|
+
 (deftemplate charmodkeys (char mod keys)
   (t! flowtap
 
@@ -66,11 +66,6 @@ chords-v2-min-idle 50
 ;;while not in flow mode, only a key pressed AND released within $keys within timeout will trigger tap action; allows stacking modifiers, since the stacked modifiers are not released
     (tap-hold-release-tap-keys-release $tap-timeout $hold-timeout $char $mod () $keys)
   )
-)
-|#
-
-(deftemplate charmodkeys (char mod keys)
-    (tap-hold-except-keys $tap-timeout $hold-timeout $char $mod $keys)
 )
 
 (deftemplate lwinkey (char)
