@@ -8,7 +8,7 @@ D5 makes use of doubled/mirrored letters, thumb vowels, chiral space/skipmagic p
 
 ## My implementation
 
-The original is specifically meant for the 28-key [Zilpzalp](https://keeb.supply/products/zilpzalp). My version is for 34-key boards like [Re-gret](https://github.com/rschenk/re-gret), and is made with Kanata instead of QMK or ZmK.
+The original is specifically meant for the 28-key [Zilpzalp](https://keeb.supply/products/zilpzalp). My version is for 34-key boards like [Re-gret](https://github.com/rschenk/re-gret), and is made with Kanata instead of QMK or ZMK.
 34 keys also allowed me to add Ä and Ö for Finnish typing.
 
 
