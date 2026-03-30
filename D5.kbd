@@ -1,5 +1,3 @@
-
-
 ;;--------------------------------------------------CONFIG
 (defcfg
 process-unmapped-keys yes
@@ -13,7 +11,7 @@ chords-v2-min-idle 50
   streak-count 3
   streak-time 450
   tap-timeout 200
-  hold-timeout 350
+  hold-timeout 250
   chord-timeout 30
 
   lkeys (
@@ -44,6 +42,13 @@ chords-v2-min-idle 50
 
 ;;------------------------------------------------------ TEMPLATES
 
+(deftemplate layerlock (layer)
+	(switch 
+		((base-layer base)) (multi (layer-switch $layer) (on-physical-idle 30000 tap-vkey basereturn)) break
+		() (on-press tap-vkey basereturn) break
+	)
+)
+
 (deftemplate flowtap (flow tap)
   (switch 
     ((key-timing $streak-count less-than $streak-time)) $flow break
@@ -51,6 +56,7 @@ chords-v2-min-idle 50
   )
 )
 
+#|
 (deftemplate charmodkeys (char mod keys)
   (t! flowtap
 
@@ -61,20 +67,118 @@ chords-v2-min-idle 50
     (tap-hold-release-tap-keys-release $tap-timeout $hold-timeout $char $mod () $keys)
   )
 )
+|#
+
+(deftemplate charmodkeys (char mod keys)
+    (tap-hold-except-keys $tap-timeout $hold-timeout $char $mod $keys)
+)
 
 (deftemplate lwinkey (char)
 	(t! flowtap
-		(tap-hold-release-keys $tap-timeout $hold-timeout (macro $char) ‹❖ (q w e r t a s d f g z x c v b 1 2 l) )
-		(tap-hold-release-tap-keys-release $tap-timeout $hold-timeout (macro $char) ‹❖ (l) (q w e r t a s d f g z x c v b 1 2))
+		(tap-hold-release-keys $tap-timeout $hold-timeout $char ‹❖ (q w e r t a s d f g z x c v b 1 2 ,) )
+		(tap-hold-release-tap-keys-release $tap-timeout $hold-timeout $char ‹❖ (,) (q w e r t a s d f g z x c v b 1 2))
 	)
+	;;(tap-hold-release $tap-timeout $hold-timeout $char ‹❖)
 )
 
 (deftemplate rwinkey (char)
 	(t! flowtap
-		(tap-hold-release-keys $tap-timeout $hold-timeout (macro $char) ❖› (y u i o p h j k l ; n m ,  . / 3 4 s) )
-		(tap-hold-release-tap-keys-release $tap-timeout $hold-timeout (macro $char) ❖› (s) (y u i o p h j k l ; n m ,  . / 3 4))
+		(tap-hold-release-keys $tap-timeout $hold-timeout $char ❖› (y u i o p h j k l ; n m , . / 3 4 c) )
+		(tap-hold-release-tap-keys-release $tap-timeout $hold-timeout $char ❖› (c) (y u i o p h j k l ; n m , . / 3 4))
 	)
+	;;(tap-hold-release $tap-timeout $hold-timeout $char ❖›)
 )
+
+(deftemplate sfsmagic () 
+(switch 
+	;;logic check 
+	;;if: input key is a pinky key and the previous key press was on the same side as that pinky key
+	((	or
+		(and 	
+			(or
+				(input-history real w 2)
+				(input-history real e 2)
+				(input-history real r 2)
+				(input-history real t 2)
+				(input-history real s 2)
+				(input-history real d 2)
+				(input-history real f 2)
+				(input-history real g 2)
+				(input-history real x 2)
+				(input-history real c 2)
+				(input-history real v 2)
+				(input-history real b 2)
+				(input-history real 1 2)
+				(input-history real 2 2)			
+			) 
+			(input-history real a 1) 
+		)
+		(and 
+			(or
+				(input-history real o 2)
+				(input-history real i 2)
+				(input-history real u 2)
+				(input-history real y 2)
+				(input-history real l 2)
+				(input-history real k 2)
+				(input-history real j 2)
+				(input-history real h 2)
+				(input-history real . 2)
+				(input-history real , 2)
+				(input-history real m 2)
+				(input-history real n 2)
+				(input-history real 4 2)
+				(input-history real 3 2)			
+			) 
+			(input-history real ; 1)
+		)
+	))
+	;;action: output letter depends on 2nd to last pressed key
+	(switch 
+		((input-history real w 3)) (macro s) break
+		;;kat rule: if key sequence is [k a {right pinky}], output is [kat]. otherwise k_d
+		((and (input-history real e 3) (input-history real 3 2) )) t break
+		((input-history real e 3)) d break
+		;;wom rule: if key sequence is [w o {right pinky}], output is [wom]. otherwise w_v
+		((and (input-history real r 3) (input-history real 4 2) )) m break
+		((input-history real r 3)) v break
+		((input-history real t 3)) (macro r) break
+		((input-history real s 3)) c break
+		;;tak rule: if key sequence is [t a {right pinky}], output is [tak]. otherwise t_d
+		((and (input-history real d 3) (input-history real 3 2) )) k break
+		((input-history real d 3)) (macro d) break
+		((input-history real f 3)) w break
+		((input-history real g 3)) r break
+		((input-history real x 3)) c break
+		((input-history real c 3)) (macro t) break
+		((input-history real v 3)) w break
+		((input-history real b 3)) r break
+		((input-history real 1 3)) i break
+		((input-history real 2 3)) u break
+		
+		((input-history real o 3)) (macro s) break
+		((input-history real i 3)) (macro n) break
+		;;beh rule: if key sequence is [b e {pinky}], output is [beh]. otherwise b_l
+		((and (input-history real u 3) (or (input-history real s 2) (input-history real l 2)) )) h break
+		((input-history real u 3)) (macro l) break
+		((input-history real y 3)) l break
+		((input-history real l 3)) g break
+		((input-history real k 3)) f break 
+		((input-history real j 3)) (macro b) break 
+		((input-history real h 3)) (macro l) break 
+		((input-history real . 3)) (macro g) break
+		((input-history real , 3)) (macro n) break
+		((input-history real m 3)) (macro b) break
+		((input-history real n 3)) (macro b) break
+		((input-history real 4 3)) a break
+		((input-history real 3 3)) o break
+	)
+	break
+	() (macro spc) break
+)
+)
+
+
 
 ;;--------------------------------------VIRTUAL KEYS
 
@@ -87,41 +191,17 @@ basereturn (layer-switch base)
 z z
 x x
 q q
+o o
+a a
+i i
+u u
 
-↖ ↖
-↘ ↘
 ⏎ ⏎
 ⭾ ⭾
 ⎋ ⎋
 ␡ ␡
 ;;backspace is triggered by a virtual key so i can stack it with modifiers but keep the held repeat behavior using tap-hold
 ⌫ ⌫
-
-▲ ▲ 
-▼ ▼
-◀ ◀ 
-▶ ▶
-Cx C-x
-Cc C-c
-Cv C-v
-
-;;the chorded versions of oaiu are triggered with virtual keys
-o (switch 
-		((layer num)) ↖ break
-		(( or (layer base) (layer osmbase) )) o break
-	)
-a (switch 
-		((layer num)) ↘ break
-		(( or (layer base) (layer osmbase) )) a break
-	)
-i (switch 
-		((layer num)) ↘ break
-		(( or (layer base) (layer osmbase) )) i break
-	)
-u (switch 
-		((layer num)) ↖ break
-		(( or (layer base) (layer osmbase) )) u break
-	)
 
 ;;bigram combos are triggered with virtual keys so they don't trigger before a tap-hold key is released; see https://jtroo.github.io/config.html#chordsv2-processing-order
 ec (macro e c)
@@ -147,16 +227,74 @@ oa (macro o a)
 ;;----------------------------ALIASES
 (defalias
 
-;;combo symbols
+;;layer keys
+;;one-shot base layer for sym layer
+  B1 (one-shot-release 5000 (layer-while-held baseshot))
 
-  / (tap-hold $tap-timeout 250 🔣/ (macro 🔣/ 🔣/))
+AR  (t! layerlock nav)
+AH (layer-while-held nav)
+A1 (one-shot-release 10000 (layer-while-held navshot))
+u (t! charmodkeys u @AH (2))
 
-;;sym layer symbols
+SY (t! layerlock sym)
+SH (layer-while-held sym)
+S1 (one-shot-release 10000 (layer-while-held symshot))
+i (t! charmodkeys i @SH (1))
+
+NU (t! layerlock num)
+NH (layer-while-held num)
+N1 (one-shot-release 10000 (layer-while-held numshot))
+a (t! charmodkeys a @NH (4))
+
+;;sym2 layer doesn't really need locking
+S2 (layer-while-held sym2)
+o (t! charmodkeys o @S2 (3))
+
+;;mods
+
+;;base layer
+;;left side
+e (t! charmodkeys (macro e) ‹⎇ $lkeys)
+t (t! charmodkeys t ‹⎈ $lkeys)
+r (t! charmodkeys r ‹⇧ $lkeys) 
+d (t! lwinkey d)
+
+;;right side
+e2 (t! charmodkeys (macro e) ‹⎇ $rkeys)
+n (t! charmodkeys n ⎈› $rkeys)
+l (t! charmodkeys l ⇧› $rkeys)
+p (t! rwinkey p)
+
+;;nav layer
+;;right side
+' (tap-hold-release $tap-timeout $hold-timeout ' ‹⎇)
+- (tap-hold-release $tap-timeout $hold-timeout - ⎈›)
+; (tap-hold-release $tap-timeout $hold-timeout ; ⇧›)
+. (tap-hold-release $tap-timeout $hold-timeout . ❖›)
+
+;;num layer
+;;left side
+4 (t! charmodkeys (macro Digit4) ‹⎇ $lkeys)
+5 (t! charmodkeys (macro Digit5) ‹⎈ $lkeys)
+6 (t! charmodkeys (macro Digit6) ‹⇧ $lkeys)
+2 (t! lwinkey (macro Digit2))
+
+;;right side
+4b (t! charmodkeys (macro Digit4) ‹⎇ $lkeys)
+5b (t! charmodkeys (macro Digit5) ⎈› $rkeys)
+6b (t! charmodkeys (macro Digit6) ⇧› $rkeys)
+2b (t! rwinkey (macro Digit2))
+
+;;misc
+
+  / (tap-hold $tap-timeout $hold-timeout 🔣/ (macro 🔣/ 🔣/))
+
+Cw (caps-word-toggle 10000)
+
   € 🔣€
   lp (unicode "(")
   rp (unicode ")")
 
-;;umlauts are unicodes so the shifted behavior has to be declared
 ä (fork 🔣ä 🔣Ä (‹⇧ ⇧›))
 ö (fork 🔣ö 🔣Ö (‹⇧ ⇧›))
 
@@ -164,6 +302,32 @@ oa (macro o a)
 s (macro s)
 y (macro y)
 
+;;auto shift letters
+C (tap-hold $tap-timeout $hold-timeout c (macro S-c))
+K (tap-hold $tap-timeout $hold-timeout k (macro S-k))
+W (tap-hold $tap-timeout $hold-timeout w (macro S-w))
+Ä (tap-hold $tap-timeout $hold-timeout 🔣ä 🔣Ä)
+E (tap-hold $tap-timeout $hold-timeout e (macro S-e))
+T (tap-hold $tap-timeout $hold-timeout t (macro S-t))
+R (tap-hold $tap-timeout $hold-timeout r (macro S-r))
+Y (tap-hold $tap-timeout $hold-timeout y (macro S-y))
+S (tap-hold $tap-timeout $hold-timeout s (macro S-s))
+D (tap-hold $tap-timeout $hold-timeout d (macro S-d))
+M (tap-hold $tap-timeout $hold-timeout m (macro S-m))
+V (tap-hold $tap-timeout $hold-timeout v (macro S-v))
+U (tap-hold $tap-timeout $hold-timeout u (macro S-u))
+I (tap-hold $tap-timeout $hold-timeout i (macro S-i))
+Ö (tap-hold $tap-timeout $hold-timeout 🔣ö 🔣Ö)
+B (tap-hold $tap-timeout $hold-timeout b (macro S-b))
+F (tap-hold $tap-timeout $hold-timeout f (macro S-f))
+G (tap-hold $tap-timeout $hold-timeout g (macro S-g))
+L (tap-hold $tap-timeout $hold-timeout l (macro S-l))
+N (tap-hold $tap-timeout $hold-timeout n (macro S-n))
+J (tap-hold $tap-timeout $hold-timeout j (macro S-j))
+H (tap-hold $tap-timeout $hold-timeout h (macro S-h))
+P (tap-hold $tap-timeout $hold-timeout p (macro S-p))
+A (tap-hold $tap-timeout $hold-timeout a (macro S-a))
+O (tap-hold $tap-timeout $hold-timeout o (macro S-o))
 
 ;;sym2 layer symbols
 ≈ 🔣≈
@@ -197,123 +361,10 @@ fx (macro f ␣ @lp x @rp ␣ )
 ∫ 🔣∫
 ∈ 🔣∈
 
-;;layer keys
-  B (layer-switch base)
-
-;;one-shot base layer for sym layer, where ctrl isn't needed
-  B1 (one-shot-release 5000 (layer-while-held osmbase))
-
-;;one-shot base layer for num layer, where ctrl is needed
-  B2 (tap-hold-release $tap-timeout $hold-timeout @B1 ⎈›)
-
-;;sym2 layer doesn't really need locking
-S2 (layer-while-held sym2)
-
-9 (multi (layer-switch num) (on-physical-idle 15000 tap-vkey basereturn))
-9H (layer-while-held num)
-91 (tap-hold-release $tap-timeout $hold-timeout (one-shot-release 5000 (layer-while-held num)) @S2)
-i (t! charmodkeys i @9H (1))
-
-S (multi (layer-switch sym) (on-physical-idle 15000 tap-vkey basereturn))
-SH (layer-while-held sym)
-S1 (tap-hold-release $tap-timeout $hold-timeout (one-shot-release 5000 (layer-while-held sym)) @S2)
-a (t! charmodkeys a @SH (4))
-
 ;;magic/repeat keys
 
-r1
-  (switch
-	((key-timing 1 lt 2000)) XX fallthrough
-	((input-history real t 2)) 🔣ä break
-	((input-history virtual es 2)) s break
-	((input-history virtual ui 2)) i break
-	((input-history virtual rm 2)) w break
-	((or
-		(key-history 🔊 1)
-		(key-history 🔉 1)
-		(key-history 🔇 1)
-		(key-history ▲ 1)
-		(key-history ▼ 1)
-		(key-history ◀ 1)
-		(key-history ▶ 1)
-		(key-history ↖ 1)
-		(key-history ↘ 1)
-		(key-history ⌫ 1)
-	)) (tap-hold $tap-timeout $hold-timeout (macro spc) spc) break
-	((or 
-		(input-history real w 2) 
-		(input-history real e 2) 
-		(input-history real r 2) 
-		(input-history real s 2) 
-		(input-history real d 2)
-		(input-history real f 2)
-		(input-history real g 2)
-		(input-history real x 2)
-		(input-history real c 2)
-		(input-history real v 2)
-		(input-history real b 2)
-		(input-history real 1 2)
-		(input-history real 2 2)
-	)) rpt break
-() (tap-hold-except-keys $tap-timeout $hold-timeout (macro spc) spc (;)) break
-  ) 
-
-r2
-  (switch
-	((key-timing 1 lt 2000)) XX fallthrough
-	((input-history real y 2)) 🔣ö break
-	((input-history virtual es2 2)) s break
-	((or
-		(key-history 🔊 1)
-		(key-history 🔉 1)
-		(key-history 🔇 1)
-		(key-history ▲ 1)
-		(key-history ▼ 1)
-		(key-history ◀ 1)
-		(key-history ▶ 1)
-		(key-history ↖ 1)
-		(key-history ↘ 1)
-		(key-history ⌫ 1)
-	)) (tap-hold $tap-timeout $hold-timeout (macro spc) spc) break
-	((or
-		(input-history real u 2) 
-		(input-history real i 2) 
-		(input-history real o 2)
-		(input-history real h 2)
-		(input-history real j 2)
-		(input-history real k 2)
-		(input-history real l 2)
-		(input-history real n 2)
-		(input-history real m 2)
-		(input-history real , 2)
-		(input-history real . 2)
-		(input-history real 3 2)
-		(input-history real 4 2)
-	)) rpt break
-() (tap-hold-except-keys $tap-timeout $hold-timeout (macro spc) spc (a)) break
-  )
-
-;;mods
-;;left side
-u (t! charmodkeys u ‹⎈ $lkeys)
-e (t! lwinkey e)
-t (t! charmodkeys t ‹⎇ $lkeys)
-r (t! charmodkeys r ‹⇧ $lkeys) 
-
-4 (t! lwinkey Digit4)
-5 (t! charmodkeys (macro Digit5) ‹⎇ $lkeys)
-6 (t! charmodkeys (macro Digit6) ‹⇧ $lkeys)
-
-;;right side
-o (t! charmodkeys o ⎈› $rkeys)
-e2 (t! rwinkey e)
-n (t! charmodkeys n ‹⎇ $rkeys)
-l (t! charmodkeys l ⇧› $rkeys)
-
-4b (t! rwinkey Digit4)
-5b (t! charmodkeys (macro Digit5) ‹⎇ $rkeys)
-6b (t! charmodkeys (macro Digit6) ⇧› $rkeys)
-
+sm (t! sfsmagic)
+	
 )
 
 ;;--------------------------------------------CHORDS------------------------------------------------
@@ -321,102 +372,52 @@ l (t! charmodkeys l ⇧› $rkeys)
 
 (defchordsv2 
 
-(f j) (caps-word-toggle 5000) $chord-timeout all-released (sym2)
-
 ;;-----------------------Left side
 
 ;;------------horizontal combos
-(w e) (on-press tap-vkey ␡) $chord-timeout all-released ()
+(w e) (on-press tap-vkey ⎋) $chord-timeout all-released ()
 (e r) (multi (on-press tap-vkey ⌫) (tap-hold $tap-timeout 500 XX ⌫)) $chord-timeout all-released ()
-(s d) (on-press tap-vkey o) $chord-timeout all-released (sym sym2)
-(d f) (on-press tap-vkey a) $chord-timeout all-released (sym sym2)
+(s d) (on-press tap-vkey o) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
+(d f) (on-press tap-vkey a) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
 (x c) (on-press tap-vkey ⏎) $chord-timeout all-released ()
 (c v) (on-press tap-vkey ⭾) $chord-timeout all-released ()
-(w r) (on-press tap-vkey z) $chord-timeout all-released (num sym sym2)
-(s f) (on-press tap-vkey x) $chord-timeout all-released (num sym sym2)
-(x v) (on-press tap-vkey q) $chord-timeout all-released (num sym sym2)
+(w r) (on-press tap-vkey z) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
+(s f) (on-press tap-vkey x) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
+(x v) (on-press tap-vkey q) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
 
 ;;-----------vertical combos
-(w s) (on-press tap-vkey ec) $chord-timeout all-released (num sym sym2)
-(e d) (on-press tap-vkey kt) $chord-timeout all-released (num sym sym2)
-(r f) (on-press tap-vkey wr) $chord-timeout all-released (num sym sym2)
-(s x) (on-press tap-vkey es) $chord-timeout all-released (num sym sym2)
-(d c) (on-press tap-vkey dt) $chord-timeout all-released (num sym sym2)
-(f v) (on-press tap-vkey rm) $chord-timeout all-released (num sym sym2)
-(g b) (on-press tap-vkey rv) $chord-timeout all-released (num sym sym2)
-(1 2) (on-press tap-vkey ui) $chord-timeout all-released (num sym sym2)
+(w s) (on-press tap-vkey ec) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
+(e d) (on-press tap-vkey kt) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
+(r f) (on-press tap-vkey wr) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
+(s x) (on-press tap-vkey es) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
+(d c) (on-press tap-vkey dt) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
+(f v) (on-press tap-vkey rm) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
+(g b) (on-press tap-vkey rv) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
+(1 2) (on-press tap-vkey ui) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
 
-;;----------thumb combos
-(1 w) (on-press tap-vkey Cx) $chord-timeout all-released ()
-(1 e) (on-press tap-vkey Cc) $chord-timeout all-released ()
-(1 r) (on-press tap-vkey Cv) $chord-timeout all-released ()
-(1 a) 🔇 $chord-timeout all-released ()
-(1 s) 🔊 $chord-timeout all-released ()
-(1 d) (multi (on-press tap-vkey ◀) (tap-hold $tap-timeout 500 XX ◀)) $chord-timeout all-released ()
-(1 f) (multi (on-press tap-vkey ▲) (tap-hold $tap-timeout 500 XX ▲)) $chord-timeout all-released ()
-(1 z) 🔇 $chord-timeout all-released ()
-(1 x) 🔉 $chord-timeout all-released ()
-(1 c) (multi (on-press tap-vkey ▶) (tap-hold $tap-timeout 500 XX ▶)) $chord-timeout all-released ()
-(1 v) (multi (on-press tap-vkey ▼) (tap-hold $tap-timeout 500 XX ▼)) $chord-timeout all-released ()
-
-(2 w) S-' $chord-timeout all-released ()
-(2 e) S-- $chord-timeout all-released ()
-(2 r) S-; $chord-timeout all-released ()
-(2 a) S-2 $chord-timeout all-released ()
-(2 s) ' $chord-timeout all-released ()
-(2 d) - $chord-timeout all-released ()
-(2 f) ; $chord-timeout all-released ()
-(2 g) ` $chord-timeout all-released ()
-(2 x) @/ $chord-timeout all-released ()
-(2 c) . $chord-timeout all-released ()
-(2 v) , $chord-timeout all-released ()
 
 ;;-----------------------Right side
+
 ;;------------horizontal combos
-(o i) (on-press tap-vkey ⎋) $chord-timeout all-released ()
+(o i) (on-press tap-vkey ␡) $chord-timeout all-released ()
 (i u) (multi (on-press tap-vkey ⌫) (tap-hold $tap-timeout 500 XX ⌫)) $chord-timeout all-released ()
-(l k)  (on-press tap-vkey u) $chord-timeout all-released (sym sym2)
-(k j) (on-press tap-vkey i) $chord-timeout all-released (sym sym2)
+(l k)  (on-press tap-vkey u) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
+(k j) (on-press tap-vkey i) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
 (. ,) (on-press tap-vkey ⏎) $chord-timeout all-released ()
 (, m) (on-press tap-vkey ⭾) $chord-timeout all-released ()
-(o u) (on-press tap-vkey z) $chord-timeout all-released (num sym sym2)
-(l j) (on-press tap-vkey x) $chord-timeout all-released (num sym sym2)
-(. m) (on-press tap-vkey q) $chord-timeout all-released (num sym sym2)
+(o u) (on-press tap-vkey z) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
+(l j) (on-press tap-vkey x) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
+(. m) (on-press tap-vkey q) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
 
 ;;-----------vertical combos
-(o l) (on-press tap-vkey eg) $chord-timeout all-released (num sym sym2)
-(i k) (on-press tap-vkey nf) $chord-timeout all-released (num sym sym2)
-(u j) (on-press tap-vkey bl) $chord-timeout all-released (num sym sym2)
-(l .) (on-press tap-vkey es2) $chord-timeout all-released (num sym sym2)
-(k ,) (on-press tap-vkey np) $chord-timeout all-released (num sym sym2)
-(j m) (on-press tap-vkey hl) $chord-timeout all-released (num sym sym2)
-(h n) (on-press tap-vkey bj) $chord-timeout all-released (num sym sym2)
-(3 4) (on-press tap-vkey oa) $chord-timeout all-released (num sym sym2)
-
-;;----------thumb combos
-(4 o) (on-press tap-vkey Cx) $chord-timeout all-released ()
-(4 i) (on-press tap-vkey Cc) $chord-timeout all-released ()
-(4 u) (on-press tap-vkey Cv) $chord-timeout all-released ()
-(4 ;) 🔇 $chord-timeout all-released ()
-(4 l) 🔊 $chord-timeout all-released ()
-(4 k) (multi (on-press tap-vkey ◀) (tap-hold $tap-timeout 500 XX ◀)) $chord-timeout all-released ()
-(4 j) (multi (on-press tap-vkey ▲) (tap-hold $tap-timeout 500 XX ▲)) $chord-timeout all-released ()
-(4 /) 🔇 $chord-timeout all-released ()
-(4 .) 🔉 $chord-timeout all-released ()
-(4 ,) (multi (on-press tap-vkey ▶) (tap-hold $tap-timeout 500 XX ▶)) $chord-timeout all-released ()
-(4 m) (multi (on-press tap-vkey ▼) (tap-hold $tap-timeout 500 XX ▼)) $chord-timeout all-released ()
-
-(3 o) S-' $chord-timeout all-released ()
-(3 i) S-- $chord-timeout all-released ()
-(3 u) S-; $chord-timeout all-released ()
-(3 ;) S-2 $chord-timeout all-released ()
-(3 l) ' $chord-timeout all-released ()
-(3 k) - $chord-timeout all-released ()
-(3 j) ; $chord-timeout all-released ()
-(3 h) ` $chord-timeout all-released ()
-(3 .) @/ $chord-timeout all-released ()
-(3 ,) . $chord-timeout all-released ()
-(3 m) , $chord-timeout all-released ()
+(o l) (on-press tap-vkey eg) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
+(i k) (on-press tap-vkey nf) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
+(u j) (on-press tap-vkey bl) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
+(l .) (on-press tap-vkey es2) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
+(k ,) (on-press tap-vkey np) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
+(j m) (on-press tap-vkey hl) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
+(h n) (on-press tap-vkey bj) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
+(3 4) (on-press tap-vkey oa) $chord-timeout all-released (nav navshot sym symshot num numshot sym2)
 )
 
 
@@ -426,42 +427,74 @@ l (t! charmodkeys l ⇧› $rkeys)
 (deflayer base
 	‹🖰	🖰›	🔇	🔉	🔊				🔅	🔆	⌨💡+	⌨💡−
 	•	c	k	w	@ä				@ö	b	f	g	•	
-	@r1	@e	@t	@r	@y				@y @l	@n	@e2 @r2	 		
-	@r1	@s	d	m	v				j	h	p	@s @r2
-					@u	@i	@a	@o	
+	@sm	@e	@t	@r	@y				@y 	@l	@n	@e2 	@sm	 		
+	@sm	@s	@d	m	v				j	h	@p	@s 	@sm 
+					@u	@i		@a	@o	
 )
 
-(deflayer osmbase
+(deflayer baseshot
 	‹🖰	🖰›	🔇	🔉	🔊				🔅	🔆	⌨💡+	⌨💡−
-	•	c	k	w	@ä				@ö	b	f	g	•	
-	•	@e	@t	@r	y				y	@l	@n	@e2	•	 		
-	•	s	d	m	v				j	h	p	s	•
-					@u	i	a	@o	
+	•	@C	@K	@W	@Ä				@Ö	@B	@F	@G	•	
+	•	@E	@T	@R	@Y				@Y	@L	@N	@E	•	 		
+	•	@S	@D	@M	@V				@J	@H	@P	@S	•
+					@U	@I		@A	@O	
+)
+
+(deflayer nav
+	‹🖰	🖰›	🔇	🔉	🔊				🔅	🔆	⌨💡+	⌨💡−
+	•	C-x	C-c	C-v	🔊				•	S-;	S--	S-'	•	
+	🔇 ◀	▲	▶	🔉				S-2	@;	@-	@'	␣	 		
+	@Cw ↖	▼	↘	@AR				•	,	@.	S-`	`
+					@B1  •		@N1 @S1		
+)
+
+(deflayer navshot
+	‹🖰	🖰›	🔇	🔉	🔊				🔅	🔆	⌨💡+	⌨💡−
+	•	C-x	C-c	C-v	🔊				•	S-;	S--	S-'	•	
+	🔇 ◀	▲	▶	🔉				S-2	;	-	'	␣	 		
+	•	 ↖	▼	↘	•				•	,	.	S-`	`
+					•	•		• 	•		
+)
+
+(deflayer sym
+	‹🖰	🖰›	🔇	🔉	🔊				🔅	🔆	⌨💡+	⌨💡−
+	•	S-,	S-[	@lp	S-6				@€	@rp	S-]	S-.	•	
+	␣	S-8	@/	[	S-4				S-/	]	S-=	=	␣	 		
+	␣	 S-5 \	S-\	@SY				•	S-1	S-3	S-7	␣
+					•  @B1		@N1 @A1		
+)
+
+(deflayer symshot
+	‹🖰	🖰›	🔇	🔉	🔊				🔅	🔆	⌨💡+	⌨💡−
+	•	S-,	S-[	@lp	S-6				@€	@rp	S-]	S-.	•	
+	␣	S-8	@/	[	S-4				S-/	]	S-=	=	␣	 		
+	␣	 S-5 \	S-\	•				•	S-1	S-3	S-7	␣
+					•  	•		•	•		
 )
 
 (deflayer num
 	‹🖰	🖰›	🔇	🔉	🔊				🔅	🔆	⌨💡+	⌨💡−
 	•	7	8	9	•				•	9	8	7	•	
-	0	@4 @5 @6	•				•	@6b @5b @4b 0	 		
-	0	1	2	3	@9				@9	3	2	1	0
-					‹⎈	@B	@S1	 @B2	
+	0	@4 	@5 	@6	•				•	@6b @5b @4b 0	 		
+	0	1	@2	3	•				@NU 3	@2b	1	0
+					@A1 @S1		@B1	 •	
 )
 
-(deflayer sym
+(deflayer numshot
 	‹🖰	🖰›	🔇	🔉	🔊				🔅	🔆	⌨💡+	⌨💡−
-	•	S-7	S-5	S-6	•				•	=	S-=	S-8	•	
-	␣	S-[	[	@lp	S-`				@€	@rp	]	S-]	␣	 		
-	S-/	 S-1	S-3	S-,	@S				@S	S-.	S-4	\	S-\
-					@B1  @91		@B	•		
+	•	7	8	9	•				•	9	8	7	•	
+	0	4 	5 	6	•				•	6 	5 	4 	0 		
+	0	1	2	3	•				•	3	2	1	0
+					• 	•		•	 •	
 )
+
+;; ≈≠γαΔ ⇐≥≤∢ ⇔⇒∛√ 
+;; ∞±βδ· π↑←∧ ∫↓→∨∈
 
 (deflayer sym2
 	‹🖰	🖰›	🔇	🔉	🔊				🔅	🔆	⌨💡+	⌨💡−
-	@≈	@≠	@γ	@α	@Δ				@∞	@±	@β	@δ	@·	
-	␣	@⇐	@≤	@≥	@∢				@π	@↑	@←	@∧	␣	 		
-	@⇔	@⇒	@∛	@√	@fx				@∫	@↓	@→	@∨	@∈
+	@≈	@≠	@±	@·	@∞				@Δ	@α	@β	@γ	@δ	
+	␣	@⇐	@≤	@≥	@∢				@π	@←	@↑	@→	␣	 		
+	@⇔	@⇒	@∛	@√	@fx				@∫	@∧	@↓	@∨	@∈
 					•	•		•	•	
 )
-
-
-
