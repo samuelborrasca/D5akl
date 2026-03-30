@@ -1,5 +1,5 @@
 # D5
-An alternate keyboard layout originally by StrawberryTurtle: [https://codeberg.org/StrawberryTurtle/](https://codeberg.org/StrawberryTurtle/zilpzalp-D5.git), found from the [AKL Discord](https://discord.com/invite/sxTV2G5Acg).
+An alternate keyboard layout originally by StrawberryTurtle: [https://codeberg.org/StrawberryTurtle/zilpzalp-D5.git](https://codeberg.org/StrawberryTurtle/zilpzalp-D5.git), found from the [AKL Discord](https://discord.com/invite/sxTV2G5Acg).
 
 Intended for column-staggered keyboards with two thumb keys per side. \
 Light switches are recommended. I use [Ambient Nocturnals](https://lowprokb.ca/collections/switches/products/ambients-silent-choc-switches?variant=44873446391972) and the original creator uses the same ones, with [lighter 12g springs on the pinky and thumb keys.](https://nolltronics.com/product/sprit-kailh-choc-12g-springs/)
