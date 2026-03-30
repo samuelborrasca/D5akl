@@ -18,7 +18,7 @@ Note that the Kanata config file expects the input layout to be configured as so
 	q	w	e	r	t				y	u	i	o	p	
 	a	s	d	f	g				h	j	k	l	;	 		
 	z	x	c	v	b				n	m	,	.	/
-					1	2	3	4		
+					1	2		3	4		
 
 ## Layout
 
