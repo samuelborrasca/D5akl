@@ -1,17 +1,17 @@
 # D5
-An alternate keyboard layout originally by StrawberryTurtle: https://codeberg.org/StrawberryTurtle/D5, found from the [AKL Discord](https://discord.com/invite/sxTV2G5Acg).
+An alternate keyboard layout originally by StrawberryTurtle: https://codeberg.org/StrawberryTurtle/, found from the [AKL Discord](https://discord.com/invite/sxTV2G5Acg).
 
 Intended for column-staggered keyboards with two thumb keys per side. \
-Light switches are recommended. I use [Ambient Nocturnals](https://lowprokb.ca/collections/switches/products/ambients-silent-choc-switches?variant=44873446391972) and the original creator uses the same ones but with [even lighter 12g springs.](https://nolltronics.com/product/sprit-kailh-choc-12g-springs/)
+Light switches are recommended. I use [Ambient Nocturnals](https://lowprokb.ca/collections/switches/products/ambients-silent-choc-switches?variant=44873446391972) and the original creator uses the same ones with [even lighter 12g springs.](https://nolltronics.com/product/sprit-kailh-choc-12g-springs/)
 
-D5 makes use of doubled/mirrored letters, thumb vowels, pinky spaces/repeat keys & combos to reduce redirects, same finger bigrams and pinky movement while increasing rolls and alts.
+D5 makes use of doubled/mirrored letters, thumb vowels, pinky spaces, skipmagic keys, and combos to reduce redirects, same finger bigrams and pinky movement while increasing rolls and alts.
 
 ## My implementation
 
 I adapted mine for a 34-key board instead of the original 28 keys, which also allowed me to add Ä and Ö for Finnish typing.
-My version is done with Kanata and has slight adjustments from the original; it is mostly stripped down.
+My version is done with Kanata and has slight adjustments from the original.
 
-The homerow mods were carefully adjusted for no misfires while typing, and it's been working well so far. They're largely based on [Argenkiwi's homerow setup](https://github.com/argenkiwi/kenkyo/discussions/27).
+The homerow mods were carefully adjusted for no misfires while typing, and it's been working well so far. They're partially based on [Argenkiwi's homerow setup](https://github.com/argenkiwi/kenkyo/discussions/27).
 
 Note that the Kanata config file expects the input layout to be configured as so, with the thumb keys being `1 2` on the left half and `3 4` on the right half:
 
@@ -24,34 +24,4 @@ Note that the Kanata config file expects the input layout to be configured as so
 
 ![alt text][layoutd5] 
 
-[layoutd5]: https://github.com/samuelborrasca/D5akl/blob/main/layoutD5.png "layoutd5"
-
-## Notes (WIP)
-
-Base layer:
-![alt text][base] 
-
-[base]: https://github.com/samuelborrasca/D5akl/blob/main/baselayer.png "base layer"
-
-Thumb combos:
-![alt text][Combos] 
-
-[Combos]: https://github.com/samuelborrasca/D5akl/blob/main/thumbcombos.png "combos"
-
-Num layer:
-![alt text][Num layer] 
-
-[Num layer]: https://github.com/samuelborrasca/D5akl/blob/main/numlayer.png "Num layer"
-
-Sym layer:
-![alt text][Sym layer] 
-
-[Sym layer]: https://github.com/samuelborrasca/D5akl/blob/main/symlayer.png "Sym layer"
-
-Sym2 layer:
-![alt text][Sym2 layer] 
-
-[Sym2 layer]: https://github.com/samuelborrasca/D5akl/blob/main/sym2layer.png "Sym2 layer"
-
-
-
+[layoutd5]: https://github.com/samuelborrasca/D5akl/blob/main/D5samuel.png "layoutd5"
