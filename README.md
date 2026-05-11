@@ -1,3 +1,6 @@
+**5/11/2026 NOTE**
+This is incomplete since it does not behave as expected 100%. For a working version see my [QMK implementation.](https://github.com/samuelborrasca/D5kanata)
+
 # D5
 An alternate keyboard layout originally by StrawberryTurtle: [https://codeberg.org/StrawberryTurtle/zilpzalp-D5.git](https://codeberg.org/StrawberryTurtle/zilpzalp-D5.git), found from the [AKL Discord](https://discord.com/invite/sxTV2G5Acg).
 
